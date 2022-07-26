@@ -56,3 +56,7 @@ module "eks" {
 
 }
 
+resource "aws_key_pair" "id_rsa" {
+  key_name   = "2206-devops-key"
+  public_key = file(".ssh/id_rsa.pub")
+}
