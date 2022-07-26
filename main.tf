@@ -33,24 +33,24 @@ module "eks" {
       from_port        = 443
       to_port          = 443
       protocol         = "-1"
-      cidr_blocks      = ["24.245.76.148/32"]
-      ipv6_cidr_blocks = ["24.245.76.148/32"]
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["0.0.0.0/0"]
     }
     http_ingress = {
       description      = "HTTP"
       from_port        = 80
       to_port          = 80
       protocol         = "-1"
-      cidr_blocks      = ["24.245.76.148/32"]
-      ipv6_cidr_blocks = ["24.245.76.148/32"]
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["0.0.0.0/0"]
     }
-    ingress = {
+    ssh_ingress = {
       description      = "SSH"
       from_port        = 22
       to_port          = 22
       protocol         = "-1"
-      cidr_blocks      = ["24.245.76.148/32"]
-      ipv6_cidr_blocks = ["24.245.76.148/32"]
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["0.0.0.0/0"]
     }
 
     egress = {
@@ -66,10 +66,10 @@ module "eks" {
   eks_managed_node_groups = {
     # ssh into nodes
     min_size     = 1
-    max_size     = 10
-    desired_size = 1
+    max_size     = 2
+    desired_size = 2
 
-    instance_types = ["t3.large", "t3.large"]
+    instance_types = ["t3.large"]
     capacity_type  = "SPOT"
   }
 
