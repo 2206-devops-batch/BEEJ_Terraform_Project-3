@@ -9,7 +9,7 @@ terraform {
 }
 
 provider "aws" {
-  # Matthew supplies credentials
+  # COE supplies credentials
 }
 
 
@@ -20,9 +20,11 @@ module "eks" {
   
   # cluster specs
   cluster_name    = "2206-devops-cluster"
-  cluster_version = "1.22"
+  cluster_version = "1.0"
   
   # vpc info from COE
+  vpc_id     = # COE supplied
+  subnet_ids = [""] # COE supplied
 
   #cluster nodes x 2
   
