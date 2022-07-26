@@ -119,3 +119,7 @@ resource "aws_key_pair" "id_rsa" {
   key_name   = "2206-devops-key"
   public_key = file(".ssh/id_rsa.pub")
 }
+remote_access = {
+        ec2_ssh_key               = aws_key_pair.this.key_name
+        source_security_group_ids = [aws_security_group.remote_access.id]
+      }
