@@ -49,5 +49,10 @@ module "eks" {
   ]
 
 
+  tags = {
+    Name = "2206-devops-cluster"
+    Terraform   = "true"
+  }
+
 }
 
