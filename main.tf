@@ -23,12 +23,31 @@ module "eks" {
   cluster_version = "1.0"
   
   # vpc info from COE
-  vpc_id     = # COE supplied
-  subnet_ids = [""] # COE supplied
+  vpc_id     = ""
+  subnet_ids = [""] 
 
-  #cluster nodes x 2
-  
-  #ssh into nodes
+  # cluster t3.large x 2
+  eks_managed_node_groups = {
+    # ssh into nodes
+    min_size     = 1
+    max_size     = 10
+    desired_size = 1
+
+    instance_types = ["t3.large", "t3.large"]
+    capacity_type  = "SPOT"
+  }
+
+  # aws-auth configmap
+  manage_aws_auth_configmap = true
+  # COE provided
+  aws_auth_roles = [
+    {
+      rolearn  = ""
+      username = ""
+      groups   = [""]
+    },
+  ]
+
 
 }
 
