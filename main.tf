@@ -12,7 +12,20 @@ provider "aws" {
   # COE supplies credentials
 }
 
+data "aws_vpc" "p3_vpc" {
+  filter {
+    name   = "tag:Name"
+    values = ["project-3-vpc"]
+  }
+}
 
+data "aws_subnet_ids" "public" {
+  vpc_id = data.aws_vpc.p3_vpc.id
+
+  tags = {
+    Name = "public"
+  }
+}
 # eks module
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
@@ -24,8 +37,18 @@ module "eks" {
   
   # vpc info from COE
   vpc_id     = data.aws_vpc.selected.id
-  subnet_ids = [""] 
+  subnet_ids = data.aws_subnet_ids.public.id 
 
+  cluster_security_group_additional_rules = {
+    egress_nodes_ephemeral_ports_tcp = {
+      description                = "To node 1025-65535"
+      protocol                   = "tcp"
+      from_port                  = 1025
+      to_port                    = 65535
+      type                       = "egress"
+      source_node_security_group = true
+    }
+  }
   # node security group rules
   node_security_group_additional_rules = {
     https_ingress = {
