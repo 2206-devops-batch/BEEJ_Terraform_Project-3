@@ -15,9 +15,9 @@ provider "aws" {
 
 provider "helm" {
   kubernetes {
-    host = module.eks.cluster_endpoint
+    host                   = module.eks.cluster_endpoint
     cluster_ca_certificate = module.eks.cluster_certificate_authority_data
-     exec {
+    exec {
       api_version = "client.authentication.k8s.io/v1alpha1"
       args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
       command     = "aws"
@@ -180,7 +180,7 @@ resource "aws_key_pair" "ssh_access_key" {
 
 output "aws-keys" {
   value = {
-  access_key = data.aws_iam_role.eks-iam-role.access_key
-  secret_key = data.aws_iam_role.eks-iam-role.secret_key
+    access_key = data.aws_iam_role.eks-iam-role.access_key
+    secret_key = data.aws_iam_role.eks-iam-role.secret_key
   }
 }
