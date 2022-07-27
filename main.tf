@@ -47,7 +47,7 @@ module "eks" {
 
   # cluster specs
   cluster_name    = "2206-devops-cluster"
-  cluster_version = "1.0"
+  cluster_version = "1.22"
 
   # vpc info from COE
   vpc_id     = data.aws_vpc.p3_vpc.id
