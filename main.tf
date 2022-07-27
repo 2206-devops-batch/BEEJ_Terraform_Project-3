@@ -190,7 +190,7 @@ resource "aws_key_pair" "ssh_access_key" {
 
 output "aws-keys" {
   value = {
-    access_key = aws_iam_user.eks-user.id
-    secret_key = aws_iam_user.eks-user.secret
+    access_key = aws_iam_access_key.eks-access-key.id
+    secret_key = aws_iam_access_key.eks-access-key.secret
   }
 }
