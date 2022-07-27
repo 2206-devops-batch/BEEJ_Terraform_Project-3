@@ -173,7 +173,7 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
                 "eks:AccessKubernetesApi",
                 "eks:DescribeCluster"
             ],
-            "Resource": "${module.eks.cluster.id}"
+            "Resource": "${module.eks.cluster_id}"
         }
     ]
 }
