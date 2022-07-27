@@ -79,7 +79,7 @@ module "eks" {
       to_port          = 443
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
       type             = "ingress"
     }
     http_ingress = {
@@ -88,7 +88,7 @@ module "eks" {
       to_port          = 80
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
       type             = "ingress"
     }
     ssh_ingress = {
@@ -97,7 +97,7 @@ module "eks" {
       to_port          = 22
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
       type             = "ingress"
     }
 
