@@ -58,6 +58,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
+      type = "ingress"
     }
     http_ingress = {
       description      = "HTTP"
@@ -66,6 +67,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
+      type = "ingress"
     }
     ssh_ingress = {
       description      = "SSH"
@@ -74,6 +76,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
+      type = "ingress"
     }
 
     egress = {
@@ -82,6 +85,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
+      type = "egress"
     }
   }
 
