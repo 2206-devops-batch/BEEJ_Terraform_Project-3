@@ -124,7 +124,7 @@ module "eks" {
       # Remote access cannot be specified with a launch templatecd 
 
       remote_access = {
-        ec2_ssh_key               = aws_key_pair.ssh_access_key.key_name
+        ec2_ssh_key = aws_key_pair.ssh_access_key.key_name
       }
     }
 
