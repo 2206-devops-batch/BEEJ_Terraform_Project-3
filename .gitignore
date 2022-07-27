@@ -1,2 +1,4 @@
 gac.sh
 .terraform*
+terraform.tfstate
+terrafrom.tfstate.backup
