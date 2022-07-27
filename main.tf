@@ -133,7 +133,7 @@ module "eks" {
     }
 
   }
-}
+} # end module eks
 
 resource "aws_iam_role" "eks-iam-role" {
  name = "2206-devops-eks-iam-role"
