@@ -111,7 +111,7 @@ module "eks" {
 
       remote_access = {
         ec2_ssh_key               = aws_key_pair.ssh_access_key.key_name
-        source_security_group_ids = [aws_security_group.remote_access.id]
+        source_security_group_ids = [node_security_group_additional_rules.ssh_ingress]
       }
     }
 
