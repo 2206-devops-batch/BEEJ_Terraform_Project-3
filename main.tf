@@ -106,7 +106,7 @@ module "eks" {
       ami_id                 = "ami-052efd3df9dad4825"
       disk_size              = 50
       instance_types         = ["t3.large"]
-      capacity_type          = "SPOT"
+      # capacity_type          = "SPOT"
       # Remote access cannot be specified with a launch templatecd 
 
       remote_access = {
