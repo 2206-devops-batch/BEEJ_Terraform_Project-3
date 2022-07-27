@@ -37,6 +37,7 @@ module "eks" {
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
     }
+    
     http_ingress = {
       description      = "HTTP"
       from_port        = 80
@@ -45,6 +46,7 @@ module "eks" {
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
     }
+
     ssh_ingress = {
       description      = "SSH"
       from_port        = 22
