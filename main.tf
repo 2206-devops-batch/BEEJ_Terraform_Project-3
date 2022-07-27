@@ -148,10 +148,16 @@ module "eks" {
   }
 } # end module eks
 
-resource "aws_iam_user" "eks-iam-user" {
-  name = "2206-devops-eks-iam-role"
+resource "aws_iam_user" "2206-eks-user" {
+  name = "2206-devops-user"
 
-  path = "/"
+  tags = {
+    tag-key = "2206-devops-user"
+  }
+}
+
+resource "aws_iam_user_policy" "eks-iam-user_policy" {
+  name = "2206-devops-eks-access-policy"
 
   policy = <<EOF
 {
