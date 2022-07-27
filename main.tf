@@ -58,7 +58,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
-      type = "ingress"
+      type             = "ingress"
     }
     http_ingress = {
       description      = "HTTP"
@@ -67,7 +67,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
-      type = "ingress"
+      type             = "ingress"
     }
     ssh_ingress = {
       description      = "SSH"
@@ -76,7 +76,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["0.0.0.0/0"]
-      type = "ingress"
+      type             = "ingress"
     }
 
     egress = {
@@ -85,7 +85,7 @@ module "eks" {
       protocol         = "-1"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
-      type = "egress"
+      type             = "egress"
     }
   }
 
@@ -136,11 +136,11 @@ module "eks" {
 } # end module eks
 
 resource "aws_iam_role" "eks-iam-role" {
- name = "2206-devops-eks-iam-role"
+  name = "2206-devops-eks-iam-role"
 
- path = "/"
+  path = "/"
 
- assume_role_policy = <<EOF
+  assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -166,9 +166,9 @@ resource "aws_key_pair" "ssh_access_key" {
 }
 # SSH remote access block
 remote_access = {
-        ec2_ssh_key               = aws_key_pair.this.key_name
-        source_security_group_ids = [aws_security_group.remote_access.id]
-      }
+  ec2_ssh_key               = aws_key_pair.this.key_name
+  source_security_group_ids = [aws_security_group.remote_access.id]
+}
 
 output "aws-keys" {
   access_key = data.aws_iam_role.eks-iam-role.access_key

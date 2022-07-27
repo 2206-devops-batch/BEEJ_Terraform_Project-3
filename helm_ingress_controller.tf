@@ -1,6 +1,8 @@
 # helm ingress controller
 module "nginx-controller" {
-  source  = "terraform-iaac/nginx-controller/helm"
+  source                      = "terraform-iaac/nginx-controller/helm"
+  metrics_enabled             = true
+  disable_heavyweight_metrics = true
 
   additional_set = [
     {
