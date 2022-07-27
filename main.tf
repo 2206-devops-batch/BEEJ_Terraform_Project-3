@@ -37,7 +37,7 @@ data "aws_subnet_ids" "public" {
   vpc_id = data.aws_vpc.p3_vpc.id
 
   tags = {
-    Name = "public"
+    Name = "*public*"
   }
 }
 # eks module
@@ -105,16 +105,13 @@ module "eks" {
 
   # cluster t3.large x 2
   eks_managed_node_groups = {
-    # ssh into nodes
-    min_size     = 1
-    max_size     = 2
-    desired_size = 2
-
-
 
     default_node_group = {
       # By default, the module creates a launch template to ensure tags are propagated to instances, etc.,
       # so we need to disable it to use the default template provided by the AWS EKS managed node group service
+      min_size               = 1
+      max_size               = 2
+      desired_size           = 2
       create_launch_template = false
       launch_template_name   = ""
       ami_id                 = "ami-052efd3df9dad4825"
@@ -193,4 +190,5 @@ output "aws-keys" {
     access_key = aws_iam_access_key.eks-access-key.id
     secret_key = aws_iam_access_key.eks-access-key.secret
   }
+  sensitive = true
 }
