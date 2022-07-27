@@ -19,5 +19,5 @@ module "nginx-controller" {
 }
 
 output "Ingress_Controller_Namespace" {
-  namespace = module.nginx-controller.namespace
+  value = module.nginx-controller.namespace
 }
