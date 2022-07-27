@@ -10,6 +10,7 @@ terraform {
 
 provider "aws" {
   # COE supplies credentials
+  profile = "revature-terraform"
 }
 
 
@@ -49,7 +50,7 @@ module "eks" {
   cluster_version = "1.0"
 
   # vpc info from COE
-  vpc_id     = data.aws_vpc.selected.id
+  vpc_id     = data.aws_vpc.p3_vpc.id
   subnet_ids = data.aws_subnet_ids.public.id
 
   cluster_security_group_additional_rules = {
