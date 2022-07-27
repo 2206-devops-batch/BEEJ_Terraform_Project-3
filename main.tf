@@ -51,7 +51,7 @@ module "eks" {
 
   # vpc info from COE
   vpc_id     = data.aws_vpc.p3_vpc.id
-  subnet_ids = data.aws_subnet_ids.public.id
+  subnet_ids = data.aws_subnet_ids.public.ids
 
   cluster_security_group_additional_rules = {
     egress_nodes_ephemeral_ports_tcp = {
@@ -124,24 +124,21 @@ module "eks" {
         ec2_ssh_key = aws_key_pair.ssh_access_key.key_name
       }
     }
+  }
+  # aws-auth configmap
+  manage_aws_auth_configmap = true
+  # COE provided
+  aws_auth_users = [
+    {
+      userarn  = aws_iam_user.eks-user.arn
+      username = aws_iam_user.eks-user.name
+      groups   = ["system:masters"]
+    },
+  ]
 
-    # aws-auth configmap
-    manage_aws_auth_configmap = true
-    # COE provided
-    aws_auth_users = [
-      {
-        userarn  = aws_iam_user.eks-user.arn
-        username = aws_iam_user.eks-user.name
-        groups   = ["system:masters"]
-      },
-    ]
-
-
-    tags = {
-      Name      = "2206-devops-cluster"
-      Terraform = "true"
-    }
-
+  tags = {
+    Name      = "2206-devops-cluster"
+    Terraform = "true"
   }
 } # end module eks
 
