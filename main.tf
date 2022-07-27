@@ -120,8 +120,8 @@ module "eks" {
     # COE provided
     aws_auth_roles = [
       {
-        rolearn  = ""
-        username = ""
+        rolearn  = aws_iam_role.eks-iam-role
+        username = aws_iam_role.eks-iam-role.name
         groups   = ["system:masters"]
       },
     ]
@@ -134,6 +134,32 @@ module "eks" {
 
   }
 }
+
+resource "aws_iam_role" "eks-iam-role" {
+ name = "2206-devops-eks-iam-role"
+
+ path = "/"
+
+ assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "eks:AccessKubernetesApi",
+                "eks:DescribeCluster"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+
+}
+
+
 resource "aws_key_pair" "ssh_access_key" {
   key_name   = "2206-devops-key"
   public_key = file(".ssh/id_rsa.pub")
@@ -143,3 +169,8 @@ remote_access = {
         ec2_ssh_key               = aws_key_pair.this.key_name
         source_security_group_ids = [aws_security_group.remote_access.id]
       }
+
+output "aws-keys" {
+  access_key = data.aws_iam_role.eks-iam-role.access_key
+  secret_key = data.aws_iam_role.eks-iam-role.secret_key
+}
