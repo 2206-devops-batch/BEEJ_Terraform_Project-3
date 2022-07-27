@@ -131,10 +131,10 @@ module "eks" {
     # aws-auth configmap
     manage_aws_auth_configmap = true
     # COE provided
-    aws_auth_roles = [
+    aws_auth_users = [
       {
-        rolearn  = aws_iam_role.eks-iam-role
-        username = aws_iam_role.eks-iam-role.name
+        userarn  = aws_iam_user.eks-iam-user
+        username = aws_iam_user.eks-iam-user.name
         groups   = ["system:masters"]
       },
     ]
@@ -148,7 +148,7 @@ module "eks" {
   }
 } # end module eks
 
-resource "aws_iam_role" "eks-iam-role" {
+resource "aws_iam_user" "eks-iam-user" {
   name = "2206-devops-eks-iam-role"
 
   path = "/"
@@ -164,7 +164,7 @@ resource "aws_iam_role" "eks-iam-role" {
                 "eks:AccessKubernetesApi",
                 "eks:DescribeCluster"
             ],
-            "Resource": "*"
+            "Resource": "module.eks.cluster.id"
         }
     ]
 }
@@ -180,7 +180,7 @@ resource "aws_key_pair" "ssh_access_key" {
 
 output "aws-keys" {
   value = {
-    access_key = data.aws_iam_role.eks-iam-role.access_key
-    secret_key = data.aws_iam_role.eks-iam-role.secret_key
+    access_key = data.aws_iam_user.eks-iam-user.access_key
+    secret_key = data.aws_iam_user.eks-iam-user.secret_key
   }
 }
