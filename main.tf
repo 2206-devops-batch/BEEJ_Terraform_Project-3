@@ -179,6 +179,9 @@ EOF
 
 }
 
+resource "aws_iam_access_key" "eks-access-key" {
+  user = aws_iam_user.eks-user.name
+}
 
 resource "aws_key_pair" "ssh_access_key" {
   key_name   = "2206-devops-key"
@@ -187,7 +190,7 @@ resource "aws_key_pair" "ssh_access_key" {
 
 output "aws-keys" {
   value = {
-    access_key = aws_iam_user.eks-iam-user.access_key
-    secret_key = aws_iam_user.eks-iam-user.secret_key
+    access_key = aws_iam_user.eks-user.id
+    secret_key = aws_iam_user.eks-user.secret
   }
 }
