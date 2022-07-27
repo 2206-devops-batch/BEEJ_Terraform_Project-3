@@ -2,7 +2,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "4.23.0"
     }
   }
@@ -30,14 +30,14 @@ data "aws_subnet_ids" "public" {
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "18.26.6"
-  
+
   # cluster specs
   cluster_name    = "2206-devops-cluster"
   cluster_version = "1.0"
-  
+
   # vpc info from COE
   vpc_id     = data.aws_vpc.selected.id
-  subnet_ids = data.aws_subnet_ids.public.id 
+  subnet_ids = data.aws_subnet_ids.public.id
 
   cluster_security_group_additional_rules = {
     egress_nodes_ephemeral_ports_tcp = {
@@ -92,34 +92,45 @@ module "eks" {
     max_size     = 2
     desired_size = 2
 
-    instance_types = ["t3.large"]
-    capacity_type  = "SPOT"
+
+
+    default_node_group = {
+      # By default, the module creates a launch template to ensure tags are propagated to instances, etc.,
+      # so we need to disable it to use the default template provided by the AWS EKS managed node group service
+      create_launch_template = false
+      launch_template_name   = ""
+      ami_id                 = "ami-052efd3df9dad4825"
+      disk_size              = 50
+      instance_types         = ["t3.large"]
+      capacity_type          = "SPOT"
+      # Remote access cannot be specified with a launch templatecd 
+
+      remote_access = {
+        ec2_ssh_key               = aws_key_pair.ssh_access_key.key_name
+        source_security_group_ids = [aws_security_group.remote_access.id]
+      }
+    }
+
+    # aws-auth configmap
+    manage_aws_auth_configmap = true
+    # COE provided
+    aws_auth_roles = [
+      {
+        rolearn  = ""
+        username = ""
+        groups   = ["system:masters"]
+      },
+    ]
+
+
+    tags = {
+      Name      = "2206-devops-cluster"
+      Terraform = "true"
+    }
+
   }
-
-  # aws-auth configmap
-  manage_aws_auth_configmap = true
-  # COE provided
-  aws_auth_roles = [
-    {
-      rolearn  = ""
-      username = ""
-      groups   = [""]
-    },
-  ]
-
-
-  tags = {
-    Name = "2206-devops-cluster"
-    Terraform   = "true"
-  }
-
 }
-
-resource "aws_key_pair" "id_rsa" {
+resource "aws_key_pair" "ssh_access_key" {
   key_name   = "2206-devops-key"
   public_key = file(".ssh/id_rsa.pub")
 }
-remote_access = {
-        ec2_ssh_key               = aws_key_pair.this.key_name
-        source_security_group_ids = [aws_security_group.remote_access.id]
-      }
