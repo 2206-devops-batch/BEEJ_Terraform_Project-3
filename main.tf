@@ -133,8 +133,8 @@ module "eks" {
     # COE provided
     aws_auth_users = [
       {
-        userarn  = aws_iam_user.eks-iam-user_policy.arn
-        username = aws_iam_user.eks-iam-user_policy.name
+        userarn  = aws_iam_user.eks-user.arn
+        username = aws_iam_user.eks-user.name
         groups   = ["system:masters"]
       },
     ]
@@ -148,7 +148,7 @@ module "eks" {
   }
 } # end module eks
 
-resource "aws_iam_user" "2206-eks-user" {
+resource "aws_iam_user" "eks-user" {
   name = "2206-devops-user"
 
   tags = {
@@ -158,7 +158,7 @@ resource "aws_iam_user" "2206-eks-user" {
 
 resource "aws_iam_user_policy" "eks-iam-user_policy" {
   name = "2206-devops-eks-access-policy"
-  user = aws_iam_user.2206 - eks-user.name
+  user = aws_iam_user.eks-user.name
 
   policy = <<EOF
 {
