@@ -12,6 +12,19 @@ provider "aws" {
   # COE supplies credentials
 }
 
+
+provider "helm" {
+  kubernetes {
+    host = module.eks.cluster_endpoint
+    cluster_ca_certificate = module.eks.cluster_certificate_authority_data
+     exec {
+      api_version = "client.authentication.k8s.io/v1alpha1"
+      args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
+      command     = "aws"
+    }
+  }
+}
+
 data "aws_vpc" "p3_vpc" {
   filter {
     name   = "tag:Name"
