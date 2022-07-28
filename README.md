@@ -5,3 +5,6 @@
  
 ## Project Scope
 ### Using Terraform, build a Kubernetes cluster with ingress load balancer.
+
+
+<img src="images/nginx-ingress-controller.png" alt="Nginx ingress controller example" width="800px">
