@@ -11,10 +11,8 @@ module "nginx-controller" {
       type  = "string"
     },
     {
-      name = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-cross-zone-load-balancing-enabled"
-      # value = "true"
-      # set to false to enable helm download
-      value = "false"
+      name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-cross-zone-load-balancing-enabled"
+      value = "true"
       type  = "string"
     }
   ]
