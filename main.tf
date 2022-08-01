@@ -152,7 +152,15 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
         "Effect"= "Allow",
         "Action"= [
             "eks:AccessKubernetesApi",
-            "eks:DescribeCluster"
+            "eks:DescribeCluster",
+            "eks:CreateNodegroup",
+            "eks:DeleteNodegroup",
+            "eks:DescribeNodegroup",
+            "eks:DescribeUpdate",
+            "eks:ListNodegroups",
+            "eks:ListTagsForResource",
+            "eks:UpdateClusterConfig",
+            "eks:UpdateNodegroupConfig"
         ],
         "Resource"= "${module.eks.cluster_arn}"
       }
