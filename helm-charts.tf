@@ -1,4 +1,4 @@
-resource "helm_release" "ingress_nginx" {
+resource "helm_release" "ingress_nginx_chart" {
   name            = "ingress-nginx-controller_chart"
   repository      = "https://kubernetes.github.io/ingress-nginx"
   chart           = "ingress-nginx"
@@ -12,7 +12,7 @@ resource "helm_release" "ingress_nginx" {
   ]
 }
 
-resource "helm_release" "jenkins_ingress" {
+resource "helm_release" "jenkins_chart" {
   name            = "jenkins_ingress_chart"
   repository      = "https://charts.jenkins.io"
   chart           = "jenkins/jenkins"
@@ -27,5 +27,8 @@ resource "helm_release" "jenkins_ingress" {
 }
 
 output "Ingress_Nginx_Controller_Namespace" {
-  value = helm_release.ingress_nginx.namespace
+  value = helm_release.ingress_nginx_chart.namespace
+}
+output "Jenkins_Namespace" {
+  value = helm_release.jenkins_chart.namespace
 }
