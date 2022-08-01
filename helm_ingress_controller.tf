@@ -18,6 +18,13 @@ module "nginx-controller" {
   ]
 }
 
+resource "helm_release" "nginx_ingress" {
+
+  values = [
+
+  ]
+}
+
 output "Ingress_Controller_Namespace" {
   value = module.nginx-controller.namespace
 }

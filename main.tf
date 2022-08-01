@@ -148,15 +148,15 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
 {
     "Version": "2012-10-17",
     "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "eks:AccessKubernetesApi",
-                "eks:DescribeCluster"
-            ],
-            "Resource": "${module.eks.cluster_arn}"
-        }
+      {
+        "Sid": "2206-devops-user",
+        "Effect": "Allow",
+        "Action": [
+            "eks:AccessKubernetesApi",
+            "eks:DescribeCluster"
+        ],
+        "Resource": "${module.eks.cluster_arn}"
+      }
     ]
 }
 EOF
