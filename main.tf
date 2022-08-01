@@ -144,8 +144,7 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
   name = "2206-devops-eks-access-policy"
   user = aws_iam_user.eks-user.name
 
-  policy = <<EOF
-{
+  policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
       {
@@ -158,9 +157,7 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
         "Resource": "${module.eks.cluster_arn}"
       }
     ]
-}
-EOF
-
+  })
 }
 
 resource "aws_iam_access_key" "eks-access-key" {
