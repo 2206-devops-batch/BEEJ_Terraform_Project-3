@@ -145,12 +145,12 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
   user = aws_iam_user.eks-user.name
 
   policy = jsonencode({
-    "Version"= "2012-10-17",
-    "Statement"= [
+    Version= "2012-10-17",
+    Statement= [
       {
-        "Sid"= "2206-devops-user",
-        "Effect"= "Allow",
-        "Action"= [
+        Sid= "2206-devops-user",
+        Effect= "Allow",
+        Action= [
             "eks:AccessKubernetesApi",
             "eks:DescribeCluster",
             "eks:CreateNodegroup",
@@ -162,7 +162,7 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
             "eks:UpdateClusterConfig",
             "eks:UpdateNodegroupConfig"
         ],
-        "Resource"= "${module.eks.cluster_arn}"
+        Resource= "${module.eks.cluster_arn}"
       }
     ]
   })
