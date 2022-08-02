@@ -1,9 +1,9 @@
 resource "helm_release" "ingress_nginx_chart" {
-  name            = "ingress-nginx-chart"
-  repository      = "https://kubernetes.github.io/ingress-nginx"
-  chart           = "ingress-nginx"
-  version         = "4.2.0"
-  namespace       = "kube-system"
+  name       = "ingress-nginx-chart"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "ingress-nginx"
+  version    = "4.2.0"
+  # namespace       = "kube-system"
   cleanup_on_fail = true
   atomic          = true
 
@@ -13,11 +13,11 @@ resource "helm_release" "ingress_nginx_chart" {
 }
 
 resource "helm_release" "jenkins_chart" {
-  name            = "jenkins_ingress_chart"
-  repository      = "https://charts.jenkins.io"
-  chart           = "jenkins/jenkins"
-  version         = "4.1.13"
-  namespace       = "kube-system"
+  name       = "jenkins_ingress_chart"
+  repository = "https://charts.jenkins.io"
+  chart      = "jenkins/jenkins"
+  version    = "4.1.13"
+  # namespace       = "kube-system"
   cleanup_on_fail = true
   atomic          = true
 
