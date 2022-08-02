@@ -15,7 +15,7 @@ resource "helm_release" "ingress_nginx_chart" {
 resource "helm_release" "jenkins_chart" {
   name            = "jenkins_ingress_chart"
   repository      = "https://charts.jenkins.io"
-  chart           = "jenkinsci/jenkins"
+  chart           = "jenkins/jenkins"
   version         = "4.1.13"
   namespace       = "kube-system"
   cleanup_on_fail = true
