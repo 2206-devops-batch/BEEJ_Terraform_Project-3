@@ -55,41 +55,32 @@ module "eks" {
 
   cluster_security_group_additional_rules = {
     egress_nodes_ephemeral_ports_tcp = {
-      description                = "To node 1024-65535"
+      description                = "To node 1025-65535"
       protocol                   = "tcp"
-      from_port                  = 1024
+      from_port                  = 1025
       to_port                    = 65535
       type                       = "egress"
-      source_node_security_group = true
-    }
-    ingress_nodes_ephemeral_ports_tcp = {
-      description                = "To node 1024-65535"
-      protocol                   = "tcp"
-      from_port                  = 1024
-      to_port                    = 65535
-      type                       = "ingress"
       source_node_security_group = true
     }
   }
   # node security group rules
   node_security_group_additional_rules = {
-    ssh_ingress = {
-      description      = "SSH"
-      from_port        = 22
-      to_port          = 22
-      protocol         = "-1"
-      cidr_blocks      = ["0.0.0.0/0"]
-      ipv6_cidr_blocks = ["::/0"]
-      type             = "ingress"
+    ingress_self_all = {
+      description = "Node to node all ports/protocols"
+      protocol    = "-1"
+      from_port   = 0
+      to_port     = 0
+      type        = "ingress"
+      self        = true
     }
-
-    egress = {
+    egress_all = {
+      description      = "Node all egress"
+      protocol         = "-1"
       from_port        = 0
       to_port          = 0
-      protocol         = "-1"
+      type             = "egress"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks = ["::/0"]
-      type             = "egress"
     }
   }
 
