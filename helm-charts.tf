@@ -12,23 +12,23 @@ resource "helm_release" "ingress_nginx_chart" {
   ]
 }
 
-resource "helm_release" "jenkins_chart" {
-  name       = "jenkins_ingress_chart"
-  repository = "https://charts.jenkins.io"
-  chart      = "jenkins/jenkins"
-  version    = "4.1.13"
-  # namespace       = "kube-system"
-  cleanup_on_fail = true
-  atomic          = true
+# resource "helm_release" "jenkins_chart" {
+#   name       = "jenkins_ingress_chart"
+#   repository = "https://charts.jenkins.io"
+#   chart      = "jenkins/jenkins"
+#   version    = "4.1.13"
+#   # namespace       = "kube-system"
+#   cleanup_on_fail = true
+#   atomic          = true
 
-  values = [
-    "${file("./charts/values-jenkins.yaml")}"
-  ]
-}
+#   values = [
+#     "${file("./charts/values-jenkins.yaml")}"
+#   ]
+# }
 
 output "Ingress_Nginx_Controller_Namespace" {
   value = helm_release.ingress_nginx_chart.namespace
 }
-output "Jenkins_Namespace" {
-  value = helm_release.jenkins_chart.namespace
-}
+# output "Jenkins_Namespace" {
+#   value = helm_release.jenkins_chart.namespace
+# }
