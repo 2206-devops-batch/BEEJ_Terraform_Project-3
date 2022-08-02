@@ -19,7 +19,7 @@ provider "helm" {
     host                   = module.eks.cluster_endpoint
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
     exec {
-      api_version = "client.authentication.k8s.io/v1alpha1"
+      api_version = "client.authentication.k8s.io/v1beta1"
       args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
       command     = "aws"
     }
@@ -132,7 +132,7 @@ resource "aws_iam_user" "eks-user" {
 }
 
 resource "aws_iam_user_policy" "eks-iam-user_policy" {
-  name = "2206-devops-eks-access-policy"
+  name = "devopsPolicy"
   user = aws_iam_user.eks-user.name
 
   policy = jsonencode({
