@@ -168,15 +168,16 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
   })
 }
 
-# resource "aws_iam_access_key" "eks-access-key" {
-#   user = aws_iam_user.eks-user.name
-# }
 
 resource "aws_key_pair" "ssh_access_key" {
   key_name   = "2206-devops-key"
   public_key = file(".ssh/id_rsa.pub")
 }
 
+# needed for output aws credential keys
+resource "aws_iam_access_key" "eks-access-key" {
+  user = aws_iam_user.eks-user.name
+}
 output "aws-keys" {
   value = {
     access_key = aws_iam_access_key.eks-access-key.id
