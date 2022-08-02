@@ -139,7 +139,7 @@ resource "aws_iam_user_policy" "eks-iam-user_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid    = "2206-devops-user",
+        Sid    = "2206DevopsUser",
         Effect = "Allow",
         Action = [
           "eks:AccessKubernetesApi",
