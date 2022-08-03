@@ -45,7 +45,7 @@ module "eks" {
   version = "18.26.6"
 
   # cluster specs
-  cluster_name    = "2206-devops-cluster"
+  cluster_name    = "2206-devops-cluster-v1"
   cluster_version = "1.22"
 
   # vpc info from COE
