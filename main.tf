@@ -13,6 +13,9 @@ provider "aws" {
   profile = "revature-terraform"
 }
 
+locals {
+  cluster_name = "2206-devops-cluster-v1"
+}
 
 provider "helm" {
   kubernetes {
@@ -20,7 +23,7 @@ provider "helm" {
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
-      args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_id]
+      args        = ["eks", "get-token", "--cluster-name", local.cluster_name]
       command     = "aws"
     }
   }
@@ -46,7 +49,7 @@ module "eks" {
   version = "18.26.6"
 
   # cluster specs
-  cluster_name    = "2206-devops-cluster-v1"
+  cluster_name    = local.cluster_name
   cluster_version = "1.22"
 
   # vpc info from COE
