@@ -106,6 +106,7 @@ module "eks" {
     }
   }
   # aws-auth configmap
+  create_aws_auth_configmap = true
   manage_aws_auth_configmap = true
   # COE provided
   aws_auth_users = [
