@@ -1,15 +1,13 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: "jenkins-ingress"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /jenkins
-        pathType: Prefix
-        backend:
-          service:
-            name: my-jenkins
-            port:
-              number: 8080
+controller:
+  jenkinsUriPrefix: /jenkins
+  ingress:
+    enabled: true
+    apiVersion: "extensions/v1"
+    path: /jenkins
+    annotations:
+      # ingressClassName: nginx
+      kubernetes.io/ingress.class: nginx
+  additionalPlugins:
+  - github:1.34.5
+  agent:
+    namespace: jenkins
